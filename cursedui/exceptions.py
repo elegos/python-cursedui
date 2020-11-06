@@ -1,0 +1,2 @@
+class FrameException(Exception):
+    pass

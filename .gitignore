@@ -1,0 +1,12 @@
+# Python
+__pycache__
+.*_cache
+# Coverage
+.coverage
+.coverage-report
+# Build files
+build
+dist
+*.egg-info
+# Editors specific
+.vscode

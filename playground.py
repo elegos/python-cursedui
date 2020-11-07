@@ -3,6 +3,8 @@ from time import sleep
 
 from cursedui import Canvas, CursedUI, Split, Subject, Text, Tile
 
+# Used for development reasons
+
 
 class Dumb(Tile[str]):
     def render(self, canvas: Canvas) -> None:
@@ -110,6 +112,7 @@ def demoFlip(window):
 
 
 def textTileDemo():
+    # flake8: noqa E501
     subject = Subject('''Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Aenean eget ipsum luctus, scelerisque lorem a, tempus augue.
 Ut blandit eleifend dolor ac tristique.

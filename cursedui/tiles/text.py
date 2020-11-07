@@ -56,6 +56,10 @@ class Text(Tile[str]):
         return super(Text, self).shouldRender() or not self._offsetPristine
 
     def render(self, canvas: Canvas) -> None:
+        # Ensure that if the canvas has changed its size, the offset values are still correct
+        self.offsetX = self.offsetX
+        self.offsetY = self.offsetY
+
         drawedLines = self.subject.split('\n')[self.offsetY:]
         drawedLines = [line[self.offsetX:] for line in drawedLines]
 

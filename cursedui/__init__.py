@@ -4,5 +4,6 @@ from cursedui.observer import ObserverSubject as Subject
 from cursedui.tile import Tile
 
 from cursedui.tiles.split import Split
+from cursedui.tiles.text import Text
 
-__all__ = ['Canvas', 'CursedUI', 'Tile', 'Subject', 'Split']
+__all__ = ['Canvas', 'CursedUI', 'Tile', 'Subject', 'Split', 'Text']

@@ -2,6 +2,7 @@ import curses
 from time import sleep
 
 from cursedui import Canvas, CursedUI, Split, Subject, Text, Tile
+from cursedui.tile_decorators import fixed_height
 
 # Used for development reasons
 
@@ -15,11 +16,14 @@ class Dumb(Tile[str]):
 
 
 def cursedUIDemo():
+    subject0 = Subject("I'm a fixed-height tile - ")
     subject1 = Subject('foo ')
     subject2 = Subject('bar ')
     subject3 = Subject('baz ')
 
     ui = CursedUI(
+        fixed_height(4)(Dumb(subject0, title='Fixed (4)', bordered=True)),
+        fixed_height(20)(Dumb(subject0, title='Fixed (20)', bordered=True)),
         Split(
             Dumb(subject1, title='Foo', bordered=True),
             Dumb(subject2, title=None, bordered=False),
@@ -159,8 +163,8 @@ Nullam placerat ut nibh eget volutpat. Sed velit magna, consectetur eget pharetr
 
 
 try:
-    textTileDemo()
-    # cursedUIDemo()
+    # textTileDemo()
+    cursedUIDemo()
     # curses.wrapper(demoFlip)
 except Exception as e:
     print(e)

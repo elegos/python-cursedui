@@ -72,9 +72,23 @@ class CursedUI:
 
             # Render
             canvasHeight = math.floor(height / len(self.tiles))
+            curHeight = 0
             for i, tile in enumerate(self.tiles):
-                tileWindow = curses.newwin(canvasHeight, width, canvasHeight * i, 0)
+                tileHeight = canvasHeight
+                # Support for fixed_height tile decorator
+                if hasattr(tile, 'fixedHeight'):
+                    tileHeight = min(height - curHeight, tile.fixedHeight)
+                    canvasHeight = math.floor(
+                        (height - curHeight - tileHeight) / (len(self.tiles) - i - 1)
+                    )
+
+                # Fixed height tiles ate all the available vertical space
+                if tileHeight <= 1:
+                    continue
+
+                tileWindow = curses.newwin(tileHeight, width, curHeight, 0)
                 tile.refresh(tileWindow)
+                curHeight += tileHeight
 
             self._sleepUntilNextFrame(beforeRender)
 

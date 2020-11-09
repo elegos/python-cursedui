@@ -9,6 +9,18 @@ This is a python graphic library based on the curses library.
 
 It hides the complexity of the basic library and offers a class-first approach to UI.
 
+## Index
+
+- [CursedUI](#cursedui)
+  - [Index](#index)
+  - [Example usage](#example-usage)
+  - [Available tiles](#available-tiles)
+    - [Split](#split)
+    - [Text](#text)
+  - [Extending (creating new tiles)](#extending-creating-new-tiles)
+  - [Tile decorators](#tile-decorators)
+    - [fixed_height](#fixed_height)
+
 ## Example usage
 
 See [example.py](example.py).
@@ -71,4 +83,20 @@ class Dumb(Tile[str]):
         canvas.lines = lines
 
         return canvas
+```
+## Tile decorators
+Tile decorators allow to extend their graphical representation without adding complexity to the normal usage. All the available decorators are written in the [tile_decorators.py](cursedui/tile_decorators.py) file.
+
+### fixed_height
+Allows to define a fixed height tile, rather than following the mainstram logic to split the view equally between tiles.
+
+It will attempt to get the required vertical space, but it will be limited to the main UI's available space. Also notice that this might preclude other views to show (for example if the remaining available space is not sufficient to show the remaining tiles).
+
+Currently only the main UI class ([CursedUI](cursedui/cursedui.py)) supports this decorator.
+
+```python
+from cursedui import Text
+from cursedui.tile_decorators import fixed_height
+
+myTile = fixed_height(maxHeight=20)(Text(...))
 ```

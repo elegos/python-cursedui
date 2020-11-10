@@ -75,6 +75,7 @@ class CursedUI:
             curHeight = 0
             for i, tile in enumerate(self.tiles):
                 tileHeight = canvasHeight
+                tileWidth = width
                 # Support for fixed_height tile decorator
                 if hasattr(tile, 'fixedHeight'):
                     tileHeight = min(height - curHeight, tile.fixedHeight)
@@ -82,11 +83,18 @@ class CursedUI:
                         (height - curHeight - tileHeight) / (len(self.tiles) - i - 1)
                     )
 
+                # Support for fixed_width tile decorator
+                if hasattr(tile, 'fixedWidth'):
+                    tileWidth = tile.fixedWidth if tile.fixedWidth <= width else width
+                elif hasattr(tile, 'percentWidth'):
+                    newWidth = math.floor(width / 100 * tile.percentWidth)
+                    tileWidth = newWidth if newWidth <= width else width
+
                 # Fixed height tiles ate all the available vertical space
                 if tileHeight <= 1:
                     continue
 
-                tileWindow = curses.newwin(tileHeight, width, curHeight, 0)
+                tileWindow = curses.newwin(tileHeight, tileWidth, curHeight, 0)
                 tile.refresh(tileWindow)
                 curHeight += tileHeight
 

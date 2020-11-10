@@ -2,7 +2,7 @@ import curses
 from time import sleep
 
 from cursedui import Canvas, CursedUI, Split, Subject, Text, Tile
-from cursedui.tile_decorators import fixed_height
+from cursedui.tile_decorators import fixed_height, fixed_width
 
 # Used for development reasons
 
@@ -23,7 +23,26 @@ def cursedUIDemo():
 
     ui = CursedUI(
         fixed_height(4)(Dumb(subject0, title='Fixed (4)', bordered=True)),
-        fixed_height(20)(Dumb(subject0, title='Fixed (20)', bordered=True)),
+        fixed_height(10)(Dumb(subject0, title='Fixed (10)', bordered=True)),
+        fixed_width(maxWidth=40)(Dumb(Subject(''), title='Fixed width (40)', bordered=True)),
+        fixed_height(3)(Split(
+            fixed_width(maxWidthPercent=10)(
+                Dumb(Subject(''), bordered=False)
+            ),
+            fixed_width(maxWidthPercent=30)(
+                Dumb(Subject(''), title='30%, padded 10%', bordered=True)
+            ),
+            fixed_width(maxWidthPercent=60)(
+                Dumb(Subject(''), title='60%', bordered=True)
+            ),
+        )),
+        fixed_height(3)(Split(
+            fixed_width(maxWidthPercent=60)(
+                Dumb(Subject(''), title='60%', bordered=True)
+            ),
+            Dumb(Subject(''), title='20%', bordered=True),
+            Dumb(Subject(''), title='20%', bordered=True),
+        )),
         Split(
             Dumb(subject1, title='Foo', bordered=True),
             Dumb(subject2, title=None, bordered=False),

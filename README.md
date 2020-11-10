@@ -13,19 +13,21 @@ It hides the complexity of the basic library and offers a class-first approach t
 
 - [CursedUI](#cursedui)
   - [Index](#index)
-  - [Example usage](#example-usage)
+  - [Examples](#examples)
   - [Available tiles](#available-tiles)
     - [Split](#split)
     - [Text](#text)
   - [Extending (creating new tiles)](#extending-creating-new-tiles)
   - [Tile decorators](#tile-decorators)
     - [fixed_height](#fixed_height)
+    - [fixed_width](#fixed_width)
 
-## Example usage
+## Examples
 
-See [example.py](example.py).
+- Basic: [example.py](example.py)
+- Layout example: [playground.py](playground.py)
 
-You can run the example simply by running `python example.py`.
+You can run the example files simply by running `python [filename].py`
 
 ## Available tiles
 
@@ -100,3 +102,12 @@ from cursedui.tile_decorators import fixed_height
 
 myTile = fixed_height(maxHeight=20)(Text(...))
 ```
+
+### fixed_width
+Allows to define a fixed width tile (absolute, percentage), rather than following the mainstream logic (CursedUI: full width; Split: equally divided).
+
+It wil lattempt to get the required horizontal space, but it will be limited to the available width. Also notice that if misused, this might prevent other tiles to be shown.
+
+Allowable parents:
+- [CursedUI](cursedui/cursedui.py)
+- [Split](cursedui/tiles/split.py)

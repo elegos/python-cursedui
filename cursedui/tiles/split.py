@@ -1,6 +1,7 @@
+import math
+from functools import reduce
 from math import floor
 from typing import List
-from functools import reduce
 
 from cursedui import Canvas, Subject, Tile
 
@@ -16,12 +17,26 @@ class Split(Tile):
         pass
 
     def onBeforeWindowRefresh(self, window, canvas: Canvas) -> bool:
-        tileHeight, tileWidth = window.getmaxyx()
-        tileWidth = floor(tileWidth / len(self.tiles))
+        numTiles = len(self.tiles)
+        tileHeight, splitWidth = window.getmaxyx()
+        itemWidth = floor(splitWidth / numTiles)
 
+        currentX = 0
         for i, tile in enumerate(self.tiles):
-            tileWindow = window.derwin(tileHeight, tileWidth, 0, tileWidth * i)
+            tileWidth = itemWidth
+            availableSpace = splitWidth - currentX
+
+            # Support for fixed_width tile decorator
+            if hasattr(tile, 'fixedWidth'):
+                tileWidth = tile.fixedWidth if tile.fixedWidth <= tileWidth else tileWidth
+            elif hasattr(tile, 'percentWidth'):
+                newWidth = math.floor(splitWidth / 100 * tile.percentWidth)
+                tileWidth = newWidth if newWidth <= availableSpace else availableSpace
+
+            tileWindow = window.derwin(tileHeight, tileWidth, 0, currentX)
             tile.refresh(tileWindow)
+            currentX += tileWidth
+            itemWidth = math.floor((splitWidth - currentX) / max(numTiles - i - 1, 1))
 
         return False
 

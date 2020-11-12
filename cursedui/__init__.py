@@ -5,5 +5,6 @@ from cursedui.tile import Tile
 
 from cursedui.tiles.split import Split
 from cursedui.tiles.text import Text
+from cursedui.tiles.log import Log
 
-__all__ = ['Canvas', 'CursedUI', 'Tile', 'Subject', 'Split', 'Text']
+__all__ = ['Canvas', 'CursedUI', 'Tile', 'Subject', 'Split', 'Text', 'Log']

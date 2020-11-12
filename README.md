@@ -17,6 +17,7 @@ It hides the complexity of the basic library and offers a class-first approach t
   - [Available tiles](#available-tiles)
     - [Split](#split)
     - [Text](#text)
+    - [Log](#log)
   - [Extending (creating new tiles)](#extending-creating-new-tiles)
   - [Tile decorators](#tile-decorators)
     - [fixed_height](#fixed_height)
@@ -56,6 +57,20 @@ splitTile = Text(title='My title', bordered=True, subject=textSubject)
 
 splitTile.offsetY = 27 # might default to the maximum possible offset
 splitTile.offsetX = -1 # defaults to 0
+```
+
+### [Log](cursedui/tiles/log.py)
+
+Derived from `Text`. The key difference is the auto-scroll feature, which disables itself whenever the vertical offset (`offsetY`) is not aligned with the last line of the subject (i.e. when manual offset control is used).
+
+```python
+from cursedui import Log
+
+logSubject = Subject('Log line 0')
+splitTile = Log(title='My scrolling log', bordered=True, subject=logSubject)
+
+for i in range(100):
+  logSubject(f'{logSubject.value}\nLog line {i}')
 ```
 
 ## Extending (creating new tiles)

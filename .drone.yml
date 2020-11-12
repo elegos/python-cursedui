@@ -1,0 +1,36 @@
+---
+kind: pipeline
+type: docker
+name: deploy_on_pypi
+
+steps:
+- name: flake8
+  image: python:3.6-slim
+  commands:
+  - python -m pip install flake8 pycodestyle
+  - python -m flake8
+
+- name: pypi_test_publish
+  when:
+    branch:
+      - develop
+  image: plugins/pypi
+  settings:
+    username:
+      from_secret: pypi_test_username
+    password:
+      from_secret: pypi_test_password
+    repository: https://test.pypi.org/legacy/
+
+- name: pypi_publish
+  when:
+    branch:
+      - master
+    event:
+      - tag
+  image: plugins/pypi
+  settings:
+    username:
+      from_secret: pypi_prod_username
+    password:
+      from_secret: pypi_prod_password

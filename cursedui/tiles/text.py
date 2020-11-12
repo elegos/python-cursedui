@@ -30,6 +30,8 @@ class Text(Tile[str]):
 
         if value > maxOffset:
             value = maxOffset
+        if value < 0:
+            value = 0
 
         self._offsetY.setState(value)
         self._offsetPristine = self._offsetPristine and self._offsetY.previousState == value

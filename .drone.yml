@@ -12,10 +12,8 @@ steps:
 
 - name: PyPI (test) publication
   when:
-    branch:
-      - develop
-    event:
-      - tag
+    ref:
+      - refs/tags/devel-*
   image: plugins/pypi
   settings:
     username:
@@ -26,10 +24,8 @@ steps:
 
 - name: PyPI publication
   when:
-    branch:
-      - master
-    event:
-      - tag
+    ref:
+      - refs/tags/v*
   image: plugins/pypi
   settings:
     username:

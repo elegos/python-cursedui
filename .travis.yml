@@ -12,12 +12,13 @@ before_install:
   - pip install -U pipenv
 
 install:
-  - pipenv install -d
+  # Install flake8 (and deps)
+  - pip install --upgrade flake8 pycodestyle
   # PyPI publication deps
   - pip install --upgrade setuptools wheel
 
 script:
-  - pipenv run python -m flake8
+  - python -m flake8
   - python setup.py sdist bdist_wheel
 
 deploy:

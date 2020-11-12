@@ -4,13 +4,13 @@ type: docker
 name: deploy_on_pypi
 
 steps:
-- name: flake8
+- name: Static code analysis
   image: python:3.6-slim
   commands:
   - python -m pip install flake8 pycodestyle
   - python -m flake8
 
-- name: pypi_test_publish
+- name: PyPI (test) publication
   when:
     branch:
       - develop
@@ -22,7 +22,7 @@ steps:
       from_secret: pypi_test_password
     repository: https://test.pypi.org/legacy/
 
-- name: pypi_publish
+- name: PyPI publication
   when:
     branch:
       - master

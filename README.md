@@ -2,6 +2,7 @@
 
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 [![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/)
+[![Typing](https://img.shields.io/badge/Typing-Fully%20typed-brightgreen)](https://realpython.com/lessons/pros-and-cons-type-hints/)
 ![PyPI](https://img.shields.io/pypi/v/cursedui)
 ![PyPI - Status](https://img.shields.io/pypi/status/cursedui)
 

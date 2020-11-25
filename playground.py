@@ -1,7 +1,7 @@
 import curses
 from time import sleep
 
-from cursedui import Canvas, CursedUI, Log, Split, Subject, Text, Tile
+from cursedui import Canvas, CursedUI, Log, Split, Subject, Text, Tile, ProgressBar
 from cursedui.tile_decorators import fixed_height, fixed_width
 
 # Used for development reasons
@@ -21,11 +21,14 @@ def cursedUIDemo():
     subject2 = Subject('bar ')
     subject3 = Subject('baz ')
     logSubject = Subject('Log line 0')
+    pbSubject = Subject(0)
 
     ui = CursedUI(
         fixed_height(4)(Dumb(subject0, title='Fixed (4)', bordered=True)),
         fixed_height(10)(Log(logSubject, title='Fixed (10) log', bordered=True)),
         fixed_width(maxWidth=40)(Dumb(Subject(''), title='Fixed width (40)', bordered=True)),
+        fixed_height(3)(ProgressBar(subject=pbSubject, total=100,
+                                    title='ProgressBar', bordered=True, showNumbers=True)),
         fixed_height(3)(Split(
             fixed_width(maxWidthPercent=10)(
                 Dumb(Subject(''), bordered=False)
@@ -58,6 +61,7 @@ def cursedUIDemo():
         s1 = subject1.value
         s2 = subject2.value
         s3 = subject3.value
+        pbv = pbSubject.value
         tmpLog = logSubject.value.split('\n')
         tmpLog.append(f'Log line {len(tmpLog)}')
         logSubject('\n'.join(tmpLog))
@@ -65,6 +69,8 @@ def cursedUIDemo():
         subject1(s2)
         subject2(s3)
         subject3(s1)
+
+        pbSubject(pbv + 7)
 
     ui.stop()
 

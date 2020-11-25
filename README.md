@@ -19,6 +19,7 @@ It hides the complexity of the basic library and offers a class-first approach t
     - [Split](#split)
     - [Text](#text)
     - [Log](#log)
+    - [ProgressBar](#progressbar)
   - [Extending (creating new tiles)](#extending-creating-new-tiles)
   - [Tile decorators](#tile-decorators)
     - [fixed_height](#fixed_height)
@@ -72,6 +73,26 @@ splitTile = Log(title='My scrolling log', bordered=True, subject=logSubject)
 
 for i in range(100):
   logSubject(f'{logSubject.value}\nLog line {i}')
+```
+
+### [ProgressBar](cursedui/tiles/progressBar.py)
+
+A progress bar shows the progression of an action. It can be configured to show or not the absolute numbers on the left side of the bar.
+
+The tile accepts the following custom parameters:
+- `total` (int, required): represents the 100%.
+- `showNumbers` (bool, optional, default `True`): show the absolute numbers on the left of the progress bar.
+
+The subject (int) represents the current progression (absolute number, relative to `total`). If the number exceedes `total`, total will be shown.
+
+```python
+from cursedui import ProgressBar
+
+progression = Subject(0)
+progressBarTile = ProgressBar(title='My progression', total=127, bordered=True, subject=progression, showNumbers=true)
+
+for i in range(100):
+  progression(i)
 ```
 
 ## Extending (creating new tiles)

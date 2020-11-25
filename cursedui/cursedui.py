@@ -94,7 +94,7 @@ class CursedUI:
                 if tileHeight <= 1:
                     continue
 
-                tileWindow = curses.newwin(tileHeight, tileWidth, curHeight, 0)
+                tileWindow = stdscr.derwin(tileHeight, tileWidth, curHeight, 0)
                 tile.refresh(tileWindow)
                 curHeight += tileHeight
 
